@@ -8,15 +8,69 @@ templ Layout(title string) {
             <meta charset="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <title>{title}</title>
-            <meta name="description" content="Earl Cameron: Full-stack Developer with 4+ years experience in JavaScript, Python, .NET, AI chatbots, and technical support. Expertise in frontend and backend development."/>
+            <meta name="description" content="Earl Cameron: Full-stack Developer with expertise in JavaScript, Python, .NET, AI chatbots, and technical support."/>
+            <meta name="view-transition" content="same-origin" />
             <script src="https://unpkg.com/htmx.org@1.9.10"></script>
             <link href="/static/output.css" rel="stylesheet"/>
+            <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+            <script>
+                document.addEventListener('htmx:beforeSwap', (event) => {
+                    if (event.detail.target.id === 'content') {
+                        const transition = document.startViewTransition(() => {
+                            event.detail.shouldSwap = false;
+                            transition.ready.then(() => {
+                                HTMX.swap(event.detail.serverResponse, event.detail.target);
+                                event.detail.settle();
+                            });
+                        });
+                    }
+                });
+            </script>
+            <style>
+                ::view-transition-old(content),
+                ::view-transition-new(content) {
+                    animation-duration: 0.5s;
+                }
+            </style>
         </head>
-        <body class="bg-gray-100">
+        <body class="flex flex-col min-h-screen bg-gray-100">
             @Nav()
-            <div id="content">
-                {children...}
-            </div>
+            <main class="flex-grow">
+                <div id="content">
+                    {children...}
+                </div>
+            </main>
+            @Footer()
         </body>
     </html>
+}
+
+templ Footer() {
+	<footer class="bg-gray-800 text-white py-8 mt-10">
+		<div class="max-w-6xl mx-auto px-4">
+			<div class="flex flex-col md:flex-row justify-between items-center">
+				<div class="mb-4 md:mb-0">
+					<h2 class="text-2xl font-bold">Earl Cameron</h2>
+					<p class="text-gray-400">Full-stack Developer & AI Innovator</p>
+				</div>
+				<div class="flex space-x-4">
+					<a href="https://github.com/monstercameron" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300 transition duration-300">
+						<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.26.82-.577v-2.165c-3.338.724-4.033-1.416-4.033-1.416-.546-1.387-1.332-1.756-1.332-1.756-1.087-.744.083-.729.083-.729 1.205.085 1.838 1.236 1.838 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.774.419-1.305.762-1.606-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.221-.124-.303-.535-1.523.118-3.176 0 0 1.008-.322 3.302 1.23a11.52 11.52 0 0 1 3.003-.403 11.52 11.52 0 0 1 3.003.403c2.292-1.553 3.299-1.23 3.299-1.23.654 1.653.243 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.804 5.624-5.476 5.922.43.37.823 1.1.823 2.219v3.293c0 .321.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"></path>
+						</svg>
+						<span class="sr-only">GitHub</span>
+					</a>
+					<a href="https://www.linkedin.com/in/earl-cameron/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300 transition duration-300">
+						<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M22.225 0H1.771C.79 0 0 .774 0 1.729v20.542C0 23.226.79 24 1.771 24h20.451C23.206 24 24 23.226 24 22.271V1.729C24 .774 23.206 0 22.225 0zM7.082 20.452H3.542V9.106h3.54v11.346zm-1.774-12.89a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM20.451 20.452h-3.54v-5.55c0-1.324-.026-3.025-1.844-3.025-1.846 0-2.13 1.447-2.13 2.944v5.631h-3.54V9.106h3.4v1.55h.047c.475-.897 1.637-1.845 3.371-1.845 3.605 0 4.267 2.37 4.267 5.448v6.193z"></path>
+						</svg>
+						<span class="sr-only">LinkedIn</span>
+					</a>
+				</div>
+			</div>
+			<div class="mt-8 text-center text-gray-400">
+				<p>&copy; 2024 Earl Cameron. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
 }
