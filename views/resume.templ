@@ -1,0 +1,111 @@
+// views/resume.templ
+
+package views
+
+templ ResumeFullPage() {
+	@Layout("Earl Cameron - Full-stack Developer | AI Innovator | Technical Problem Solver") {
+		@ResumeContent()
+	}
+}
+
+templ ResumeContent() {
+    <div class="max-w-4xl mx-auto mt-8 px-4">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Earl Cameron - Full-stack Developer & AI Innovator</h1>
+        
+        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-3">Professional Summary</h2>
+                <p class="text-gray-600">
+                    Full-stack Developer with 4+ years of experience specializing in frontend and backend development. Expert in managing technical support cases, from Windows server management to debugging source code and defect patching. Proven track record in designing innovative AI chatbots, user-friendly dashboards, and mentoring emerging developers. Passionate about tackling new challenges in gaming, finance, medical, social media, and AI tools industries.
+                </p>
+            </section>
+
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-3">Key Skills</h2>
+                <ul class="grid grid-cols-3 gap-2 text-gray-600">
+                    <li>JavaScript/ES6+</li>
+                    <li>Python</li>
+                    <li>.NET</li>
+                    <li>C#</li>
+                    <li>Node.js</li>
+                    <li>Angular</li>
+                    <li>React.js</li>
+                    <li>MongoDB</li>
+                    <li>MySQL</li>
+                    <li>SQL</li>
+                    <li>REST/HTTP</li>
+                    <li>GIT</li>
+                    <li>Large Language Models</li>
+                    <li>OpenAI API</li>
+                    <li>GCP</li>
+                    <li>Linux</li>
+                    <li>HTMX</li>
+                    <li>AI Chatbots</li>
+                    <li>Go</li>
+                    <li>Templ</li>
+                    <li>Digital Ocean</li>
+                </ul>
+            </section>
+
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-3">Professional Experience</h2>
+                <div class="mb-4">
+                    <h3 class="text-xl font-semibold">Software Engineer - UKG</h3>
+                    <p class="text-gray-500">2020 - Present</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-2">
+                        <li>Developed award-winning AI chatbot prototype, earning internal innovation award</li>
+                        <li>Led emergency 'war rooms' for critical infrastructure issue resolution</li>
+                        <li>Designed and built internal dashboard for tracking development and infrastructure Jira cases</li>
+                        <li>Mentored interns and conducted training sessions for support teams</li>
+                        <li>Managed escalated customer cases and defects with professional communication</li>
+                        <li>Created comprehensive process documentation to streamline workflows</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-xl font-semibold">Instructor/TA - 4Geeks Academy</h3>
+                    <p class="text-gray-500">Jan 2020 - Aug 2021 · 1 yr 8 mos</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-2">
+                        <li>Instructed and guided students in becoming full stack developers</li>
+                        <li>Provided comprehensive training in web development technologies and best practices</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-xl font-semibold">HTML / CSS and JavaScript Tutor - Miami Dade College</h3>
+                    <p class="text-gray-500">180 hours tutored</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-2">
+                        <li>Achieved a perfect 5.0 rating from 6 student evaluations</li>
+                        <li>Tutored 12 students, providing personalized instruction in web development fundamentals</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-3">Notable Projects</h2>
+                <ul class="list-disc list-inside text-gray-600">
+                    <li>Personal Website 2023: Node, Express, SQLite, EJS, HTMX</li>
+                    <li>MetaHuman Server: Python, SOTA AI/ML Models</li>
+                    <li>UKG Internal Dashboards: .NET, Angular</li>
+                    <li>MDChem: MERN stack chemistry game and dashboard</li>
+                    <li>People Budget: Interactive web application for local government engagement</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-3">Interests & Community Engagement</h2>
+                <ul class="list-disc list-inside text-gray-600">
+                    <li>Active hackathon participant (MDC Game Jam, Mango Hacks, Shell Hacks, etc.)</li>
+                    <li>Large Language Models research and OpenAI API implementation</li>
+                    <li>Exploring emerging technologies like HTMX</li>
+                    <li>Active in developer communities (r/javascript, r/node, r/reactjs)</li>
+                    <li>Language learning: Japanese and Spanish</li>
+                </ul>
+            </section>
+        </div>
+        
+        <div class="text-center">
+            <a href="/static/Earl_Cameron_Resume.pdf" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded text-center transition duration-300 inline-block">
+                Download Full Resume (PDF)
+            </a>
+        </div>
+    </div>
+}

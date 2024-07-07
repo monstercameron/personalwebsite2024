@@ -1,0 +1,27 @@
+// views/nav.templ
+
+package views
+
+templ Nav() {
+	<nav class="bg-white shadow-lg">
+		<div class="max-w-6xl mx-auto px-4">
+			<div class="flex justify-between items-center">
+				<div class="flex items-center">
+					<a href="/" class="flex items-center py-4 px-2">
+						<img src="/static/logo.png" alt="Logo" class="h-8 w-8 mr-2"/>
+						<span class="font-semibold text-gray-500 text-lg">Earl Cameron</span>
+					</a>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a hx-get="/" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Home</a>
+					<a hx-get="/resume" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Resume</a>
+					<a href="http://reader.earlcameron.com/" target="_blank" rel="noopener noreferrer" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">RSS</a>
+					<a hx-get="/projects" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Projects</a>
+					<a hx-get="/blog" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Blog</a>
+					<a hx-get="/ai-workshop" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">AI Workshop</a>
+					<a hx-get="/demos" hx-target="#content" hx-push-url="true" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Demos</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+}

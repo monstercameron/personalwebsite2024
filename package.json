@@ -1,0 +1,23 @@
+{
+  "name": "personalwebsite2024",
+  "version": "1.0.0",
+  "description": "Personal Website",
+  "main": "index.js",
+  "scripts": {
+    "templ": "cd views && templ generate",
+    "start": "go run main.go",
+    "css": "tailwindcss -i ./styles/input.css -o ./static/output.css",
+    "dev": "npm run templ && npm run css && npm run start",
+    "watch": "nodemon --watch 'views/**/*.templ' --watch main.go --watch styles/input.css --ext go,templ,css --ignore '**/*_templ.go' --exec \"npm run dev\"",
+    "watch:css": "tailwindcss -i ./styles/input.css -o ./static/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
+  }
+}
