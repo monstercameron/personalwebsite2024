@@ -7,6 +7,8 @@ import (
 	"os"
 	"personalwebsite/openai"
 	"personalwebsite/views"
+	"personalwebsite/utils"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -39,6 +41,9 @@ func main() {
 	// Handle routes
 	http.HandleFunc("/", handleHome)
 	http.HandleFunc("/resume", handleResume)
+	http.HandleFunc("/projects", handleProjects)
+	http.HandleFunc("/blog", handleBlogList)
+	http.HandleFunc("/blog/", handleBlogPost)
 	http.HandleFunc("/generate-text", handleGenerateText)
 	http.HandleFunc("/generate-image", handleGenerateImage)
 
@@ -51,6 +56,10 @@ func main() {
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
 	if r.Header.Get("HX-Request") == "true" {
 		views.HomeContent().Render(r.Context(), w)
 	} else {
@@ -64,6 +73,40 @@ func handleResume(w http.ResponseWriter, r *http.Request) {
 	} else {
 		views.ResumeFullPage().Render(r.Context(), w)
 	}
+}
+
+func handleProjects(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("HX-Request") == "true" {
+		views.ProjectsContent().Render(r.Context(), w)
+	} else {
+		views.ProjectsFullPage().Render(r.Context(), w)
+	}
+}
+
+func handleBlogList(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("HX-Request") == "true" {
+		views.BlogContent().Render(r.Context(), w)
+	} else {
+		views.BlogFullPage().Render(r.Context(), w)
+	}
+}
+
+func handleBlogPost(w http.ResponseWriter, r *http.Request) {
+	slug := strings.TrimPrefix(r.URL.Path, "/blog/")
+	posts, err := utils.LoadBlogPosts()
+	if err != nil {
+		http.Error(w, "Error loading blog posts", http.StatusInternalServerError)
+		return
+	}
+
+	for _, post := range posts {
+		if post.Slug == slug {
+			views.BlogPostPage(post).Render(r.Context(), w)
+			return
+		}
+	}
+
+	http.NotFound(w, r)
 }
 
 func handleGenerateText(w http.ResponseWriter, r *http.Request) {
