@@ -1,16 +1,23 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"personalwebsite/openai"
-	"personalwebsite/views"
-	"personalwebsite/utils"
-	"strings"
+	"personalwebsite/routes"
+	"syscall"
+	"time"
 
 	"github.com/joho/godotenv"
+)
+
+var (
+	vsCodeUser string
+	vsCodePass string
 )
 
 func main() {
@@ -26,7 +33,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("OpenAI client initialized successfully")
+	// Get VS Code credentials from .env
+	vsCodeUser = os.Getenv("VSCODEUSER")
+	vsCodePass = os.Getenv("VSCODEPASS")
+
+	if vsCodeUser == "" || vsCodePass == "" {
+		log.Fatal("VSCODEUSER and VSCODEPASS must be set in .env file")
+	}
+
+	fmt.Println("OpenAI client and VS Code credentials initialized successfully")
 
 	// Get PORT from .env
 	port := os.Getenv("PORT")
@@ -34,109 +49,40 @@ func main() {
 		port = "8080" // default port if not specified
 	}
 
-	// Serve static files
-	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	// Setup routes
+	routes.SetupRoutes(vsCodeUser, vsCodePass)
 
-	// Handle routes
-	http.HandleFunc("/", handleHome)
-	http.HandleFunc("/resume", handleResume)
-	http.HandleFunc("/projects", handleProjects)
-	http.HandleFunc("/blog", handleBlogList)
-	http.HandleFunc("/blog/", handleBlogPost)
-	http.HandleFunc("/generate-text", handleGenerateText)
-	http.HandleFunc("/generate-image", handleGenerateImage)
-
-	// Start the server
-	fmt.Printf("Server starting on http://localhost:%s\n", port)
-	err = http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		fmt.Printf("Error starting server: %s\n", err)
-	}
-}
-
-func handleHome(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	if r.Header.Get("HX-Request") == "true" {
-		views.HomeContent().Render(r.Context(), w)
-	} else {
-		views.HomeFullPage().Render(r.Context(), w)
-	}
-}
-
-func handleResume(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("HX-Request") == "true" {
-		views.ResumeContent().Render(r.Context(), w)
-	} else {
-		views.ResumeFullPage().Render(r.Context(), w)
-	}
-}
-
-func handleProjects(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("HX-Request") == "true" {
-		views.ProjectsContent().Render(r.Context(), w)
-	} else {
-		views.ProjectsFullPage().Render(r.Context(), w)
-	}
-}
-
-func handleBlogList(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("HX-Request") == "true" {
-		views.BlogContent().Render(r.Context(), w)
-	} else {
-		views.BlogFullPage().Render(r.Context(), w)
-	}
-}
-
-func handleBlogPost(w http.ResponseWriter, r *http.Request) {
-	slug := strings.TrimPrefix(r.URL.Path, "/blog/")
-	posts, err := utils.LoadBlogPosts()
-	if err != nil {
-		http.Error(w, "Error loading blog posts", http.StatusInternalServerError)
-		return
+	// Create server
+	srv := &http.Server{
+		Addr:    ":" + port,
+		Handler: nil, // use default ServeMux
 	}
 
-	for _, post := range posts {
-		if post.Slug == slug {
-			views.BlogPostPage(post).Render(r.Context(), w)
-			return
+	// Start server in a goroutine
+	go func() {
+		fmt.Printf("Server starting on http://localhost:%s\n", port)
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("ListenAndServe(): %v", err)
 		}
+	}()
+
+	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 5 seconds
+	quit := make(chan os.Signal, 1)
+	// kill (no param) default send syscall.SIGTERM
+	// kill -2 is syscall.SIGINT
+	// kill -9 is syscall.SIGKILL but can't be catch, so don't need add it
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Println("Shutting down server...")
+
+	// Create a deadline to wait for
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// Doesn't block if no connections, but will otherwise wait until the timeout deadline
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal("Server forced to shutdown:", err)
 	}
 
-	http.NotFound(w, r)
-}
-
-func handleGenerateText(w http.ResponseWriter, r *http.Request) {
-	prompt := r.URL.Query().Get("prompt")
-	if prompt == "" {
-		http.Error(w, "Prompt is required", http.StatusBadRequest)
-		return
-	}
-
-	completion, err := openai.GenerateCompletion(prompt)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Fprint(w, completion)
-}
-
-func handleGenerateImage(w http.ResponseWriter, r *http.Request) {
-	prompt := r.URL.Query().Get("prompt")
-	if prompt == "" {
-		http.Error(w, "Prompt is required", http.StatusBadRequest)
-		return
-	}
-
-	imageURL, err := openai.GenerateImage(prompt)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Fprint(w, imageURL)
+	log.Println("Server exiting")
 }

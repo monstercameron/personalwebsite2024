@@ -1,0 +1,68 @@
+package views
+
+templ AIWorkshopFullPage(loggedIn bool) {
+	@Layout("AI Workshop") {
+		@AIWorkshopContent(loggedIn)
+	}
+}
+
+templ AIWorkshopContent(loggedIn bool) {
+	if !loggedIn {
+		@AIWorkshopLoginForm()
+	} else {
+		@AIWorkshopDashboard()
+	}
+}
+
+templ AIWorkshopLoginForm() {
+	<div class="flex items-center justify-center min-h-screen bg-gray-100">
+		<div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+			<h3 class="text-2xl font-bold text-center">Login to AI Workshop</h3>
+			<form hx-post="/aiworkshop/login" hx-target="#content">
+				<div class="mt-4">
+					<div>
+						<label class="block" for="email">Email</label>
+						<input
+							type="text"
+							placeholder="Email"
+							class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+							name="email"
+							id="email"
+							required
+						/>
+					</div>
+					<div class="mt-4">
+						<label class="block" for="password">Password</label>
+						<input
+							type="password"
+							placeholder="Password"
+							class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+							name="password"
+							id="password"
+							required
+						/>
+					</div>
+					<div class="flex items-baseline justify-between">
+						<button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" type="submit">Login</button>
+						<a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+}
+
+templ AIWorkshopDashboard() {
+	<div class="max-w-4xl mx-auto mt-8 px-4">
+		<h1 class="text-4xl font-bold text-gray-800 mb-6">AI Workshop Dashboard</h1>
+		<p class="text-gray-600 mb-8">Welcome to the AI Workshop. Here you can experiment with various AI models and tools.</p>
+		<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+			<h2 class="text-2xl font-semibold text-gray-800 mb-4">Remote Development Environment</h2>
+			<p class="text-gray-600 mb-4">Access your remote Visual Studio Code session to start coding and experimenting with AI models.</p>
+			<a href="/aiworkshop/vscode-session" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+				Launch VS Code Session
+				<span class="ml-2">&#8599;</span>
+			</a>
+		</div>
+	</div>
+}
