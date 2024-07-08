@@ -50,12 +50,12 @@ func main() {
 	}
 
 	// Setup routes
-	routes.SetupRoutes(vsCodeUser, vsCodePass)
+    handler := routes.SetupRoutes(vsCodeUser, vsCodePass)
 
 	// Create server
 	srv := &http.Server{
 		Addr:    ":" + port,
-		Handler: nil, // use default ServeMux
+		Handler: handler,
 	}
 
 	// Start server in a goroutine

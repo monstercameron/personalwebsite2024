@@ -4,12 +4,13 @@ package routes
 
 import (
 	"fmt"
-	"strings"
 	"net/http"
+	"personalwebsite/middleware"
 	"personalwebsite/openai"
 	"personalwebsite/utils"
 	"personalwebsite/views"
-    "personalwebsite/middleware"
+	"strings"
+	"bytes"
 )
 
 var (
@@ -17,26 +18,64 @@ var (
 	vsCodePass string
 )
 
-func SetupRoutes(user, pass string) {
-    vsCodeUser = user
-    vsCodePass = pass
+type statusRecorder struct {
+	http.ResponseWriter
+	status      int
+	wroteHeader bool
+	body        *bytes.Buffer
+}
 
-    // Serve static files
-    fs := http.FileServer(http.Dir("static"))
-    http.Handle("/static/", http.StripPrefix("/static/", fs))
+func SetupRoutes(user, pass string) http.Handler {
+	vsCodeUser = user
+	vsCodePass = pass
 
-    // Handle routes with logger middleware
-    http.HandleFunc("/", middleware.LoggerMiddleware(handleHome))
-    http.HandleFunc("/resume", middleware.LoggerMiddleware(handleResume))
-    http.HandleFunc("/projects", middleware.LoggerMiddleware(handleProjects))
-    http.HandleFunc("/blog", middleware.LoggerMiddleware(handleBlogList))
-    http.HandleFunc("/blog/", middleware.LoggerMiddleware(handleBlogPost))
-    http.HandleFunc("/aiworkshop", middleware.LoggerMiddleware(handleAIWorkshop))
-    http.HandleFunc("/aiworkshop/login", middleware.LoggerMiddleware(handleAIWorkshopLogin))
-    http.HandleFunc("/aiworkshop/vscode-session", middleware.LoggerMiddleware(handleVSCodeSession))
-    http.HandleFunc("/generate-text", middleware.LoggerMiddleware(handleGenerateText))
-    http.HandleFunc("/generate-image", middleware.LoggerMiddleware(handleGenerateImage))
+	mux := http.NewServeMux()
+
+	// Serve static files
+	fs := http.FileServer(http.Dir("static"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	// Set up specific routes
+	mux.HandleFunc("/", middleware.LoggerMiddleware(handleHome))
+	mux.HandleFunc("/resume", middleware.LoggerMiddleware(handleResume))
+	mux.HandleFunc("/projects", middleware.LoggerMiddleware(handleProjects))
+	mux.HandleFunc("/blog", middleware.LoggerMiddleware(handleBlogList))
+	mux.HandleFunc("/blog/", middleware.LoggerMiddleware(handleBlogPost))
+	mux.HandleFunc("/aiworkshop", middleware.LoggerMiddleware(handleAIWorkshop))
+	mux.HandleFunc("/aiworkshop/login", middleware.LoggerMiddleware(handleAIWorkshopLogin))
+	mux.HandleFunc("/aiworkshop/vscode-session", middleware.LoggerMiddleware(handleVSCodeSession))
+	mux.HandleFunc("/generate-text", middleware.LoggerMiddleware(handleGenerateText))
+	mux.HandleFunc("/generate-image", middleware.LoggerMiddleware(handleGenerateImage))
 	http.HandleFunc("/metrics", handleMetrics)
+
+	// Create a custom handler to wrap ServeMux and handle 404
+	wrappedMux := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		rec := &statusRecorder{ResponseWriter: w, status: http.StatusOK, body: new(bytes.Buffer)}
+		mux.ServeHTTP(rec, r)
+		if rec.status == http.StatusNotFound {
+			handle404(w, r)
+		} else {
+			rec.ResponseWriter.WriteHeader(rec.status)
+			rec.body.WriteTo(rec.ResponseWriter)
+		}
+	})
+
+	return wrappedMux
+}
+
+func (rec *statusRecorder) WriteHeader(status int) {
+	if rec.wroteHeader {
+		return
+	}
+	rec.status = status
+	rec.wroteHeader = true
+}
+
+func (rec *statusRecorder) Write(b []byte) (int, error) {
+	if !rec.wroteHeader {
+		rec.WriteHeader(http.StatusOK)
+	}
+	return rec.body.Write(b)
 }
 
 func handleMetrics(w http.ResponseWriter, r *http.Request) {
@@ -51,22 +90,22 @@ func handleMetrics(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
-    if r.URL.Path != "/" {
-        http.NotFound(w, r)
-        return
-    }
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
 
-    quote, err := openai.GetQuoteOfTheDay()
-    if err != nil {
-        fmt.Printf("Error getting quote of the day: %v\n", err)
-        quote = "Probably out of OAI tokens"
-    }
+	quote, err := openai.GetQuoteOfTheDay()
+	if err != nil {
+		fmt.Printf("Error getting quote of the day: %v\n", err)
+		quote = "Probably out of OAI tokens"
+	}
 
-    if r.Header.Get("HX-Request") == "true" {
-        views.HomeContent(quote).Render(r.Context(), w)
-    } else {
-        views.HomeFullPage(quote).Render(r.Context(), w)
-    }
+	if r.Header.Get("HX-Request") == "true" {
+		views.HomeContent(quote).Render(r.Context(), w)
+	} else {
+		views.HomeFullPage(quote).Render(r.Context(), w)
+	}
 }
 
 func handleResume(w http.ResponseWriter, r *http.Request) {
@@ -177,4 +216,9 @@ func handleGenerateImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, imageURL)
+}
+
+func handle404(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	views.NotFoundPage().Render(r.Context(), w)
 }
