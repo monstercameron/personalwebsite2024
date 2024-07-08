@@ -1,0 +1,82 @@
+[
+  {
+    "timestamp": "2024-07-07T21:26:38-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:26:45-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:03-04:00",
+    "method": "GET",
+    "path": "/resume",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:08-04:00",
+    "method": "GET",
+    "path": "/projects",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:09-04:00",
+    "method": "GET",
+    "path": "/blog",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:11-04:00",
+    "method": "GET",
+    "path": "/blog/exploring-htmx",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:15-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:31-04:00",
+    "method": "GET",
+    "path": "/resume",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:38-04:00",
+    "method": "GET",
+    "path": "/blog",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:27:45-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:51792",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  }
+]

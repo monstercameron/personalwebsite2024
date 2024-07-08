@@ -4,11 +4,12 @@ package routes
 
 import (
 	"fmt"
+	"strings"
 	"net/http"
 	"personalwebsite/openai"
 	"personalwebsite/utils"
 	"personalwebsite/views"
-	"strings"
+    "personalwebsite/middleware"
 )
 
 var (
@@ -17,36 +18,43 @@ var (
 )
 
 func SetupRoutes(user, pass string) {
-	vsCodeUser = user
-	vsCodePass = pass
+    vsCodeUser = user
+    vsCodePass = pass
 
-	// Serve static files
-	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+    // Serve static files
+    fs := http.FileServer(http.Dir("static"))
+    http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// Handle routes
-	http.HandleFunc("/", handleHome)
-	http.HandleFunc("/resume", handleResume)
-	http.HandleFunc("/projects", handleProjects)
-	http.HandleFunc("/blog", handleBlogList)
-	http.HandleFunc("/blog/", handleBlogPost)
-	http.HandleFunc("/aiworkshop", handleAIWorkshop)
-	http.HandleFunc("/aiworkshop/login", handleAIWorkshopLogin)
-	http.HandleFunc("/aiworkshop/vscode-session", handleVSCodeSession)
-	http.HandleFunc("/generate-text", handleGenerateText)
-	http.HandleFunc("/generate-image", handleGenerateImage)
+    // Handle routes with logger middleware
+    http.HandleFunc("/", middleware.LoggerMiddleware(handleHome))
+    http.HandleFunc("/resume", middleware.LoggerMiddleware(handleResume))
+    http.HandleFunc("/projects", middleware.LoggerMiddleware(handleProjects))
+    http.HandleFunc("/blog", middleware.LoggerMiddleware(handleBlogList))
+    http.HandleFunc("/blog/", middleware.LoggerMiddleware(handleBlogPost))
+    http.HandleFunc("/aiworkshop", middleware.LoggerMiddleware(handleAIWorkshop))
+    http.HandleFunc("/aiworkshop/login", middleware.LoggerMiddleware(handleAIWorkshopLogin))
+    http.HandleFunc("/aiworkshop/vscode-session", middleware.LoggerMiddleware(handleVSCodeSession))
+    http.HandleFunc("/generate-text", middleware.LoggerMiddleware(handleGenerateText))
+    http.HandleFunc("/generate-image", middleware.LoggerMiddleware(handleGenerateImage))
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	if r.Header.Get("HX-Request") == "true" {
-		views.HomeContent().Render(r.Context(), w)
-	} else {
-		views.HomeFullPage().Render(r.Context(), w)
-	}
+    if r.URL.Path != "/" {
+        http.NotFound(w, r)
+        return
+    }
+
+    quote, err := openai.GetQuoteOfTheDay()
+    if err != nil {
+        fmt.Printf("Error getting quote of the day: %v\n", err)
+        quote = "Probably out of OAI tokens"
+    }
+
+    if r.Header.Get("HX-Request") == "true" {
+        views.HomeContent(quote).Render(r.Context(), w)
+    } else {
+        views.HomeFullPage(quote).Render(r.Context(), w)
+    }
 }
 
 func handleResume(w http.ResponseWriter, r *http.Request) {

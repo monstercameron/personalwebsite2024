@@ -2,47 +2,40 @@
 
 package views
 
-templ HomeFullPage() {
-	<html lang="en">
-		<head>
-			<meta charset="UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Earl Cameron - Software Engineering Leader</title>
-			<script src="https://unpkg.com/htmx.org@1.9.10"></script>
-			<link href="/static/output.css" rel="stylesheet"/>
-		</head>
-		<body class="bg-gray-100">
-			@Nav()
-			<div id="content">
-				@HomeContent()
-			</div>
-            @Footer()
-		</body>
-	</html>
+templ HomeFullPage(quote string) {
+	@Layout("Earl Cameron - Home") {
+		@HomeContent(quote)
+	}
 }
 
-templ HomeContent() {
+templ HomeContent(quote string) {
 	<div class="max-w-4xl mx-auto mt-8 px-4">
-		<h1 class="text-4xl font-bold text-gray-800 mb-6">Earl Cameron</h1>
-		<h2 class="text-2xl font-semibold text-gray-700 mb-4">Software Engineering Leader & Educator</h2>
-		<div class="bg-white shadow-md rounded-lg p-6 mb-8">
-			<p class="text-gray-600 leading-relaxed">
-				As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project. My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.
-			</p>
-			<p class="text-gray-600 leading-relaxed mt-4">
-				I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success. My experience as an instructor underscores my commitment to knowledge sharing and mentorship.
-			</p>
-			<p class="text-gray-600 leading-relaxed mt-4">
-				I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent. Ready to bring innovation and excellence to your team.
-			</p>
+		<h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome to Earl Cameron's Website</h1>
+		<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">
+			<p class="font-bold">Quote of the Day</p>
+			<p>{ quote }</p>
 		</div>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			<a hx-get="/projects" hx-target="#content" hx-push-url="true" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center transition duration-300">
-				View My Projects
-			</a>
-			<a hx-get="/resume" hx-target="#content" hx-push-url="true" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded text-center transition duration-300">
-				Check Out My Resume
-			</a>
+		<div class="max-w-4xl mx-auto mt-8 px-4">
+			<h2 class="text-2xl font-semibold text-gray-700 mb-4">Software Engineering Leader & Educator</h2>
+			<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+				<p class="text-gray-600 leading-relaxed">
+					As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project. My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.
+				</p>
+				<p class="text-gray-600 leading-relaxed mt-4">
+					I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success. My experience as an instructor underscores my commitment to knowledge sharing and mentorship.
+				</p>
+				<p class="text-gray-600 leading-relaxed mt-4">
+					I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent. Ready to bring innovation and excellence to your team.
+				</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<a hx-get="/projects" hx-target="#content" hx-push-url="true" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center transition duration-300">
+					View My Projects
+				</a>
+				<a hx-get="/resume" hx-target="#content" hx-push-url="true" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded text-center transition duration-300">
+					Check Out My Resume
+				</a>
+			</div>
 		</div>
 	</div>
 }
