@@ -78,5 +78,45 @@
     "remote_addr": "[::1]:51792",
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:34:35-04:00",
+    "method": "GET",
+    "path": "/blog",
+    "remote_addr": "[::1]:52211",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:34:40-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:52211",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:36:03-04:00",
+    "method": "GET",
+    "path": "/projects",
+    "remote_addr": "[::1]:52211",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:36:44-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:52211",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T21:38:16-04:00",
+    "method": "GET",
+    "path": "/resume",
+    "remote_addr": "[::1]:52211",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
   }
 ]

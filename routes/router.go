@@ -36,6 +36,18 @@ func SetupRoutes(user, pass string) {
     http.HandleFunc("/aiworkshop/vscode-session", middleware.LoggerMiddleware(handleVSCodeSession))
     http.HandleFunc("/generate-text", middleware.LoggerMiddleware(handleGenerateText))
     http.HandleFunc("/generate-image", middleware.LoggerMiddleware(handleGenerateImage))
+	http.HandleFunc("/metrics", handleMetrics)
+}
+
+func handleMetrics(w http.ResponseWriter, r *http.Request) {
+	metricsJSON, err := utils.GetMetricsJSON()
+	if err != nil {
+		http.Error(w, "Error calculating metrics", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(metricsJSON)
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
