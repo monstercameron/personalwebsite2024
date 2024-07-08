@@ -686,5 +686,101 @@
     "remote_addr": "[::1]:59830",
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:43:24-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:43:25-04:00",
+    "method": "GET",
+    "path": "/resume",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:43:26-04:00",
+    "method": "GET",
+    "path": "/projects",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:44:05-04:00",
+    "method": "GET",
+    "path": "/metrics",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:44:26-04:00",
+    "method": "GET",
+    "path": "/",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:44:29-04:00",
+    "method": "GET",
+    "path": "/resume",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:44:34-04:00",
+    "method": "GET",
+    "path": "/metrics",
+    "remote_addr": "[::1]:59831",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:46:22-04:00",
+    "method": "GET",
+    "path": "/metricsaaa",
+    "remote_addr": "[::1]:60345",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:46:48-04:00",
+    "method": "GET",
+    "path": "/404",
+    "remote_addr": "[::1]:60345",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:47:13-04:00",
+    "method": "GET",
+    "path": "/projects",
+    "remote_addr": "[::1]:60345",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:47:14-04:00",
+    "method": "GET",
+    "path": "/aiworkshop",
+    "remote_addr": "[::1]:60345",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": ""
+  },
+  {
+    "timestamp": "2024-07-07T23:47:23-04:00",
+    "method": "POST",
+    "path": "/aiworkshop/login",
+    "remote_addr": "[::1]:60345",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "content_type": "application/x-www-form-urlencoded"
   }
 ]

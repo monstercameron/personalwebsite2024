@@ -46,7 +46,7 @@ func SetupRoutes(user, pass string) http.Handler {
 	mux.HandleFunc("/aiworkshop/vscode-session", middleware.LoggerMiddleware(handleVSCodeSession))
 	mux.HandleFunc("/generate-text", middleware.LoggerMiddleware(handleGenerateText))
 	mux.HandleFunc("/generate-image", middleware.LoggerMiddleware(handleGenerateImage))
-	http.HandleFunc("/metrics", handleMetrics)
+	mux.HandleFunc("/metrics", handleMetrics)
 
 	// Create a custom handler to wrap ServeMux and handle 404
 	wrappedMux := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
