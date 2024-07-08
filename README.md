@@ -1,128 +1,214 @@
-# Earl Cameron's Personal Website
+# Personal Website 2024
 
-## Overview
+A cutting-edge personal website showcasing modern web development techniques and AI integration.
 
-This project is a personal website for Earl Cameron, a Full-stack Developer and AI Innovator. The website showcases Earl's professional experience, skills, and projects, and includes integration with OpenAI's GPT and DALL-E models for text and image generation.
+## Project Overview
 
-## Technology Stack
+- **Backend:** Go (Golang) 1.22.1
+- **Frontend:** HTML5 with HTMX 2.0.0 for dynamic content loading
+- **Styling:** Tailwind CSS 3.4.1
+- **Templating:** templ 0.2.598
+- **AI Integration:** OpenAI API (GPT-3.5 and DALL-E models)
+- **Database:** JSON files for content storage
+- **Deployment:** Optimized for Digital Ocean VPS
 
-- **Backend:** Go (Golang)
-- **Frontend:** HTML, CSS (Tailwind CSS), JavaScript (HTMX)
-- **Templating:** templ
-- **AI Integration:** OpenAI API (GPT-3.5 and DALL-E)
-- **Environment Management:** godotenv
+## Key Features
+
+1. **Responsive Design:**
+   - Mobile-first approach using Tailwind CSS
+   - Seamless experience across devices (mobile, tablet, desktop)
+
+2. **Dynamic Content Loading:**
+   - HTMX integration for SPA-like experience without heavy JavaScript
+   - Smooth transitions between pages
+
+3. **AI-Powered Functionalities:**
+   - Text generation using GPT-3.5 model
+   - Image generation with DALL-E
+   - Daily quote generation with caching mechanism
+
+4. **Content Management:**
+   - Blog system with JSON-based content storage
+   - Easy-to-update project showcase
+   - Dynamic resume page
+
+5. **AI Workshop:**
+   - Secure login system
+   - Integration with remote Visual Studio Code
+   - Playground for AI experiments
+
+6. **Performance Optimizations:**
+   - Efficient routing system
+   - Static file serving with proper caching
+   - Minimal JavaScript usage
+
+7. **Monitoring and Logging:**
+   - Custom middleware for request logging
+   - Metrics endpoint for basic analytics
 
 ## Project Structure
 
 ```
-personalwebsite/
-├── main.go
-├── openai/
-│   └── openai_handler.go
-├── views/
-│   ├── home.templ
-│   ├── resume.templ
+/
+├── main.go           # Main application entry point
+├── go.mod            # Go module definition
+├── go.sum            # Go module checksums
+├── .env              # Environment variables (not in repo)
+├── static/           # Static files (CSS, images, etc.)
+│   └── output.css    # Compiled Tailwind CSS
+├── views/            # templ template files
 │   ├── layout.templ
-│   └── nav.templ
-├── static/
-│   └── output.css
+│   ├── home.templ
+│   ├── blog.templ
+│   └── ... 
 ├── styles/
-│   └── input.css
-├── .env
-├── go.mod
-├── go.sum
-└── README.md
+│   └── input.css     # Tailwind CSS input file
+├── routes/
+│   └── router.go     # Route definitions and handlers
+├── middleware/
+│   └── logger.go     # Logging middleware
+├── openai/
+│   └── openai_handler.go  # OpenAI API integration
+├── utils/
+│   └── blog_utils.go # Utility functions for blog
+└── scripts/
+    └── install.sh    # Installation script
 ```
 
-## Features
+## Installation
 
-- Responsive design using Tailwind CSS
-- Dynamic content loading with HTMX
-- Integration with OpenAI for text and image generation
-- Resume page showcasing professional experience and skills
-- Modular template structure using templ
+### Prerequisites
 
-## Setup and Installation
+- Linux-based system (Ubuntu 22.04 LTS recommended)
+- Root access or sudo privileges
+- Git installed
+- Internet connection for downloading dependencies
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/personalwebsite.git
-   cd personalwebsite
+### Detailed Installation Steps
+
+1. **SSH into your server:**
+   ```bash
+   ssh root@your_server_ip
    ```
 
-2. Install dependencies:
-   ```sh
-   go mod tidy
-   npm install
+2. **Create the installation script:**
+   ```bash
+   nano /root/install.sh
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory with the following content:
-   ```
-   OAIKEY=your_openai_api_key_here
-   PORT=8080
-   ```
+3. **Copy the contents of the `install.sh` script (provided separately) into this file. Save and exit (Ctrl+X, then Y, then Enter).**
 
-4. Generate CSS:
-   ```sh
-   npx tailwindcss -i ./styles/input.css -o ./static/output.css
+4. **Make the script executable:**
+   ```bash
+   chmod +x /root/install.sh
    ```
 
-5. Generate templ files:
-   ```sh
-   templ generate
+5. **Run the installation script:**
+   ```bash
+   ./root/install.sh
    ```
 
-6. Run the server:
-   ```sh
-   go run main.go
+6. **The script will:**
+   - Update system packages
+   - Install Go, npm, and other dependencies
+   - Clone the repository
+   - Set up the project structure
+   - Generate `templ` files
+   - Build Tailwind CSS
+   - Create a systemd service for automatic startup
+
+7. **After installation, edit the `.env` file with your actual values:**
+   ```bash
+   nano /root/PersonalWebsite2024/.env
    ```
-   The server will start on [http://localhost:8080](http://localhost:8080) (or the port specified in your `.env` file).
 
-## Development
+   Required values:
+   - `PORT`: The port your server will run on (default: 80)
+   - `OAIKEY`: Your OpenAI API key
+   - `VSCODEUSER`: Username for AI Workshop access
+   - `VSCODEPASS`: Password for AI Workshop access
 
-- To watch for changes in Tailwind CSS:
-  ```sh
-  npx tailwindcss -i ./styles/input.css -o ./static/output.css --watch
-  ```
+8. **Restart the service to apply the new environment variables:**
+   ```bash
+   sudo systemctl restart personalwebsite.service
+   ```
 
-- To regenerate templ files after changes:
-  ```sh
-  templ generate
-  ```
+## Usage Guide
 
-- To run the server with hot reloading, you can use tools like `air`:
-  ```sh
-  air
-  ```
+1. **Accessing the Website:**
+   - Navigate to `http://your_server_ip` in a web browser
+   - If you've set up a domain, use that instead
 
-## API Endpoints
+2. **Navigation:**
+   - Use the top navigation bar to explore different sections
+   - Experience smooth transitions powered by HTMX
 
-- `/`: Home page
-- `/resume`: Resume page
-- `/generate-text?prompt=<your_prompt>`: Generate text using OpenAI's GPT model
-- `/generate-image?prompt=<your_prompt>`: Generate an image using DALL-E
+3. **Blog Management:**
+   - Edit the `/root/PersonalWebsite2024/static/blog_posts.json` file to update blog content
+   - Format:
+     ```json
+     {
+       "posts": [
+         {
+           "title": "Post Title",
+           "slug": "post-slug",
+           "content": "Post content in HTML format",
+           "date": "2024-03-15T00:00:00Z"
+         },
+         ...
+       ]
+     }
+     ```
 
-## Contributing
+4. **AI Workshop:**
+   - Navigate to the AI Workshop section
+   - Log in using the credentials set in the `.env` file
+   - Experiment with text and image generation
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+5. **Updating the Website:**
 
-## License
+   For code changes:
+   - SSH into the server
+   - Navigate to `/root/PersonalWebsite2024`
+   - Make your changes
+   - Rebuild: `go build -o PersonalWebsite2024 main.go`
+   - Restart: `sudo systemctl restart personalwebsite.service`
 
-This project is licensed under the MIT License.
+   For style changes:
+   - Edit the `styles/input.css` file
+   - Rebuild CSS: `npx tailwindcss -i ./styles/input.css -o ./static/output.css`
 
-## Contact
+## Maintenance and Monitoring
 
-Earl Cameron - [mr.e.cameron@gmail.com](mailto:mr.e.cameron@gmail.com)
+1. **Check service status:**
+   ```bash
+   sudo systemctl status personalwebsite.service
+   ```
 
-Project Link: [https://github.com/yourusername/personalwebsite](https://github.com/yourusername/personalwebsite)
+2. **View logs:**
+   ```bash
+   journalctl -u personalwebsite.service
+   ```
+
+3. **Monitor system resources:**
+   ```bash
+   top or htop
+   ```
+
+4. **Check disk usage:**
+   ```bash
+   df -h
+   ```
+
+5. **View real-time log:**
+   ```bash
+   tail -f /var/log/syslog | grep personalwebsite
+   ```
 
 ## Acknowledgements
 
-- [Go](https://golang.org/)
-- [HTMX](https://htmx.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [templ](https://github.com/a-h/templ)
-- [OpenAI](https://openai.com/)
-- [godotenv](https://github.com/joho/godotenv)
-```
+- Go community for the excellent programming language and tools
+- HTMX for simplifying dynamic content without heavy JavaScript
+- Tailwind CSS for the utility-first CSS framework
+- OpenAI for their powerful API
+- Digital Ocean for reliable hosting solutions
