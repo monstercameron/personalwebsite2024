@@ -10,15 +10,14 @@ cd /root/PersonalWebsite2024
 git pull
 
 # Generate templ files
-cd views
-templ generate
-cd ..
+npm run templ
+cd /root/PersonalWebsite2024
 
 # Build Tailwind CSS
-npx tailwindcss -i ./styles/input.css -o ./static/output.css
+npm run css
 
 # Rebuild the Go application
-go build -o PersonalWebsite2024 main.go
+go build -o PersonalWebsite2024
 
 # Restart the PersonalWebsite service
 systemctl restart personalwebsite
