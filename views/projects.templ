@@ -1,95 +1,100 @@
 package views
 
 type Project struct {
-    Title       string
-    Description string
-    TechStack   []string
-    GitHubLink  string
-    DemoLink    string
+	Title       string
+	Description string
+	TechStack   []string
+	GitHubLink  string
+	DemoLink    string
 }
 
 templ ProjectsFullPage() {
-    @Layout("Earl Cameron - Projects") {
-        @ProjectsContent()
-    }
+	@Layout("Earl Cameron - Projects") {
+		@ProjectsContent()
+	}
 }
 
 templ ProjectsContent() {
-    <div class="max-w-4xl mx-auto mt-8 px-4">
-        <h1 class="text-4xl font-bold text-gray-800 mb-6">My Projects</h1>
-        <p class="text-gray-600 mb-8">Here are some of the key projects I've worked on. Each demonstrates different aspects of my skills and interests in software development and AI.</p>
-        
-        @projectGrid([]Project{
-            {
-                Title: "UKG Internal Dashboards",
-                Description: "Led a group of interns in building an internal analytics dashboard. Tapped into Jira databases and localized data for internal analysis. Metrics tracked include change failure rate, mean time to resolution, cycle times, throughput, etc.",
-                TechStack: []string{"Typescript", "hono.js", "jsx", "Htmx", "TailwindCSS", "MSSQL", "Jira API"},
-                GitHubLink: "",
-                DemoLink: "",
-            },
-            {
-                Title: "Personal Website 2024",
-                Description: "An experimental project to learn HATEOAS principles. Utilized HTMX to add flexibility to the frontend without the complexity of React's ecosystem.",
-                TechStack: []string{"HTMX", "TailwindCSS", "Go", "Templ", "HATEOAS", "Openai"},
-                GitHubLink: "https://github.com/monstercameron/PersonalWebsite2024",
-                DemoLink: "https://www.earlcameron.com",
-            },
-            {
-                Title: "MetaHuman Server",
-                Description: "A voice-activated chatbot that replicates functionalities similar to Siri or Alexa. Serves as a test bed for integrating various cutting-edge AI models.",
-                TechStack: []string{"Python", "SOTA AI/ML Models", "whisper", "Coqui TTS", "Picovoice"},
-                GitHubLink: "https://github.com/monstercameron/MetaHumanServer",
-                DemoLink: "",
-            },
-            {
-                Title: "MDChem",
-                Description: "A chemistry game and dashboard to assist a chemistry professor in improving student scores.",
-                TechStack: []string{"MERN Stack"},
-                GitHubLink: "https://github.com/monstercameron/mdchem-mern",
-                DemoLink: "",
-            },
-            {
-                Title: "People Budget",
-                Description: "An interactive web application to involve people in local government. Led a team of 6 students and provided training in web design and React.",
-                TechStack: []string{"React"},
-                GitHubLink: "https://github.com/CodeforSouth/peoplebudget-demo",
-                DemoLink: "",
-            },
-        })
-    </div>
+	<div class="max-w-4xl mx-auto mt-8 px-4">
+		<h1 class="text-4xl font-bold text-gray-800 mb-6">My Projects</h1>
+		<p class="text-gray-600 mb-8">Here are some of the key projects I've worked on. Each demonstrates different aspects of my skills and interests in software development and AI.</p>
+		@projectGrid([]Project{
+			{
+				Title:       "UKG Internal Dashboards",
+				Description: "Led a group of interns in building an internal analytics dashboard. Tapped into Jira databases and localized data for internal analysis. Metrics tracked include change failure rate, mean time to resolution, cycle times, throughput, etc.",
+				TechStack:   []string{"Typescript", "hono.js", "jsx", "Htmx", "TailwindCSS", "MSSQL", "Jira API"},
+				GitHubLink:  "",
+				DemoLink:    "",
+			},
+			{
+				Title:       "Personal Website 2024",
+				Description: "An experimental project to learn HATEOAS principles. Utilized HTMX to add flexibility to the frontend without the complexity of React's ecosystem.",
+				TechStack:   []string{"HTMX", "TailwindCSS", "Go", "Templ", "HATEOAS", "Openai"},
+				GitHubLink:  "https://github.com/monstercameron/PersonalWebsite2024",
+				DemoLink:    "https://www.earlcameron.com",
+			}, {
+				Title:       "goGitListener",
+				Description: "A Go application designed to listen for GitHub webhooks and execute custom scripts based on push events.",
+				TechStack:   []string{"Go", "GitHub Webhooks", "JSON", "Systemd", "Ubuntu"},
+				GitHubLink:  "https://github.com/monstercameron/goGitListener",
+				DemoLink:    "",
+			},
+			{
+				Title:       "MetaHuman Server",
+				Description: "A voice-activated chatbot that replicates functionalities similar to Siri or Alexa. Serves as a test bed for integrating various cutting-edge AI models.",
+				TechStack:   []string{"Python", "SOTA AI/ML Models", "whisper", "Coqui TTS", "Picovoice"},
+				GitHubLink:  "https://github.com/monstercameron/MetaHumanServer",
+				DemoLink:    "",
+			},
+			{
+				Title:       "MDChem",
+				Description: "A chemistry game and dashboard to assist a chemistry professor in improving student scores.",
+				TechStack:   []string{"MERN Stack"},
+				GitHubLink:  "https://github.com/monstercameron/mdchem-mern",
+				DemoLink:    "",
+			},
+			{
+				Title:       "People Budget",
+				Description: "An interactive web application to involve people in local government. Led a team of 6 students and provided training in web design and React.",
+				TechStack:   []string{"React"},
+				GitHubLink:  "https://github.com/CodeforSouth/peoplebudget-demo",
+				DemoLink:    "",
+			},
+		})
+	</div>
 }
 
 templ projectGrid(projects []Project) {
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        for _, project := range projects {
-            @projectCard(project)
-        }
-    </div>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		for _, project := range projects {
+			@projectCard(project)
+		}
+	</div>
 }
 
 templ projectCard(project Project) {
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-2">{ project.Title }</h2>
-        <p class="text-gray-600 mb-4">{ project.Description }</p>
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Tech Stack:</h3>
-            <div class="flex flex-wrap gap-2">
-                for _, tech := range project.TechStack {
-                    <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">{ tech }</span>
-                }
-            </div>
-        </div>
-        <div class="flex space-x-4">
-            if project.GitHubLink != "" {
-                <a href={ templ.SafeURL(project.GitHubLink) } target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                    GitHub
-                </a>
-            }
-            if project.DemoLink != "" {
-                <a href={ templ.SafeURL(project.DemoLink) } target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded transition duration-300">
-                    Live Demo
-                </a>
-            }
-        </div>
-    </div>
+	<div class="bg-white shadow-md rounded-lg p-6">
+		<h2 class="text-2xl font-semibold text-gray-800 mb-2">{ project.Title }</h2>
+		<p class="text-gray-600 mb-4">{ project.Description }</p>
+		<div class="mb-4">
+			<h3 class="text-lg font-semibold text-gray-700 mb-2">Tech Stack:</h3>
+			<div class="flex flex-wrap gap-2">
+				for _, tech := range project.TechStack {
+					<span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">{ tech }</span>
+				}
+			</div>
+		</div>
+		<div class="flex space-x-4">
+			if project.GitHubLink != "" {
+				<a href={ templ.SafeURL(project.GitHubLink) } target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+					GitHub
+				</a>
+			}
+			if project.DemoLink != "" {
+				<a href={ templ.SafeURL(project.DemoLink) } target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded transition duration-300">
+					Live Demo
+				</a>
+			}
+		</div>
+	</div>
 }
