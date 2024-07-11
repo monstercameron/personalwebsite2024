@@ -11,14 +11,14 @@ git pull
 
 # Generate templ files
 cd views
-./root/go/bin/templ generate
+/root/go/bin/templ generate
 cd ..
 
 # Build Tailwind CSS
 npx tailwindcss -i ./styles/input.css -o ./static/output.css
 
 # Rebuild the Go application
-./usr/local/go/bin/go build -o PersonalWebsite2024
+/usr/local/go/bin/go build -o PersonalWebsite2024
 
 # Restart the PersonalWebsite service
 systemctl restart personalwebsite
