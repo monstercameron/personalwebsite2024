@@ -7,6 +7,7 @@ set -e
 cd /root/PersonalWebsite2024
 
 # Pull the latest changes from the main branch
+git restore .
 git pull
 
 # Generate templ files
