@@ -16,7 +16,7 @@ cd views
 cd ..
 
 # Build Tailwind CSS
-npx tailwindcss -i ./styles/input.css -o ./static/output.css
+npx tailwindcss -i ./tailwinds/input.css -o ./static/output.css
 
 # Rebuild the Go application
 /usr/local/go/bin/go build -o PersonalWebsite2024
