@@ -17,8 +17,7 @@ func SetupRoutes(user, pass string) http.Handler {
 
 	// Serve static files from the "static" directory
 	fs := http.FileServer(http.Dir("static"))
-    mux.Handle("/static/", http.StripPrefix("/static/", fs))
-	// mux.Handle("/static/", http.StripPrefix("/static/", middleware.CompressStaticFileHandler(fs)))
+	mux.Handle("/static/", http.StripPrefix("/static/", handlers.CacheControlHandler(fs)))
 
 	// Public routes
 	mux.HandleFunc("/", middleware.LoggerMiddleware(handlers.HandleHome))
