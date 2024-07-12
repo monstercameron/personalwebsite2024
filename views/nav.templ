@@ -13,7 +13,7 @@ templ Nav() {
 					</a>
 				</div>
 				<div class="md:hidden flex items-center">
-					<button id="nav-toggle" class="mobile-menu-button">
+					<button id="nav-toggle" class="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
 						<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
 						</svg>
@@ -38,11 +38,11 @@ templ Nav() {
 			</div>
 		</div>
 	</nav>
-
 	<script>
-		document.getElementById('nav-toggle').addEventListener('click', function() {
-			document.querySelector('.mobile-menu').classList.toggle('hidden');
-		});
-	</script>
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+        var mobileMenu = document.querySelector('.mobile-menu');
+        var isHidden = mobileMenu.classList.toggle('hidden');
+        this.setAttribute('aria-expanded', !isHidden);
+    });
+</script>
 }
-
