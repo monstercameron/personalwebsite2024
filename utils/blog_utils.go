@@ -5,29 +5,16 @@ package utils
 import (
 	"encoding/json"
 	"os"
-	"time"
+	"personalwebsite/models"
 )
 
-type BlogPost struct {
-	Title       string    `json:"title"`
-	Slug        string    `json:"slug"`
-	Description string    `json:"description"`
-	Date        time.Time `json:"date"`
-	Tags        []string  `json:"tags"`
-	Content     string    `json:"content"`
-}
-
-type BlogPosts struct {
-	Posts []BlogPost `json:"posts"`
-}
-
-func LoadBlogPosts() ([]BlogPost, error) {
-	file, err := os.ReadFile("static/blog_posts.json")
+func LoadBlogPosts() ([]models.BlogPost, error) {
+	file, err := os.ReadFile("static/data/blog_posts.json")
 	if err != nil {
 		return nil, err
 	}
 
-	var blogPosts BlogPosts
+	var blogPosts models.BlogPosts
 	err = json.Unmarshal(file, &blogPosts)
 	if err != nil {
 		return nil, err

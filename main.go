@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"personalwebsite/openai"
 	"personalwebsite/routes"
+	"personalwebsite/utils"
 	"syscall"
 	"time"
 
@@ -28,7 +28,7 @@ func main() {
 	}
 
 	// Initialize OpenAI client
-	err = openai.Init()
+	err = utils.Init()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,7 +50,7 @@ func main() {
 	}
 
 	// Setup routes
-    handler := routes.SetupRoutes(vsCodeUser, vsCodePass)
+	handler := routes.SetupRoutes(vsCodeUser, vsCodePass)
 
 	// Create server
 	srv := &http.Server{
@@ -68,9 +68,6 @@ func main() {
 
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 5 seconds
 	quit := make(chan os.Signal, 1)
-	// kill (no param) default send syscall.SIGTERM
-	// kill -2 is syscall.SIGINT
-	// kill -9 is syscall.SIGKILL but can't be catch, so don't need add it
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	log.Println("Shutting down server...")

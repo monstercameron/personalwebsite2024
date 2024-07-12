@@ -1,70 +1,22 @@
 package views
 
-type Project struct {
-	Title       string
-	Description string
-	TechStack   []string
-	GitHubLink  string
-	DemoLink    string
-}
+import "personalwebsite/models"
 
-templ ProjectsFullPage() {
+templ ProjectsFullPage(projects []models.Project) {
 	@Layout("Earl Cameron - Projects") {
-		@ProjectsContent()
+		@ProjectsContent(projects)
 	}
 }
 
-templ ProjectsContent() {
+templ ProjectsContent(projects []models.Project) {
 	<div class="max-w-4xl mx-auto mt-8 px-4">
 		<h1 class="text-4xl font-bold text-gray-800 mb-6">My Projects</h1>
 		<p class="text-gray-600 mb-8">Here are some of the key projects I've worked on. Each demonstrates different aspects of my skills and interests in software development and AI.</p>
-		@projectGrid([]Project{
-			{
-				Title:       "UKG Internal Dashboards",
-				Description: "Led a group of interns in building an internal analytics dashboard. Tapped into Jira databases and localized data for internal analysis. Metrics tracked include change failure rate, mean time to resolution, cycle times, throughput, etc.",
-				TechStack:   []string{"Typescript", "hono.js", "jsx", "Htmx", "TailwindCSS", "MSSQL", "Jira API"},
-				GitHubLink:  "",
-				DemoLink:    "",
-			},
-			{
-				Title:       "Personal Website 2024",
-				Description: "An experimental project to learn HATEOAS principles. Utilized HTMX to add flexibility to the frontend without the complexity of React's ecosystem.",
-				TechStack:   []string{"HTMX", "TailwindCSS", "Go", "Templ", "HATEOAS", "Openai"},
-				GitHubLink:  "https://github.com/monstercameron/PersonalWebsite2024",
-				DemoLink:    "https://www.earlcameron.com",
-			}, {
-				Title:       "goGitListener",
-				Description: "A Go application designed to listen for GitHub webhooks and execute custom scripts based on push events.",
-				TechStack:   []string{"Go", "GitHub Webhooks", "JSON", "Systemd", "Ubuntu"},
-				GitHubLink:  "https://github.com/monstercameron/goGitListener",
-				DemoLink:    "",
-			},
-			{
-				Title:       "MetaHuman Server",
-				Description: "A voice-activated chatbot that replicates functionalities similar to Siri or Alexa. Serves as a test bed for integrating various cutting-edge AI models.",
-				TechStack:   []string{"Python", "SOTA AI/ML Models", "whisper", "Coqui TTS", "Picovoice"},
-				GitHubLink:  "https://github.com/monstercameron/MetaHumanServer",
-				DemoLink:    "",
-			},
-			{
-				Title:       "MDChem",
-				Description: "A chemistry game and dashboard to assist a chemistry professor in improving student scores.",
-				TechStack:   []string{"MERN Stack"},
-				GitHubLink:  "https://github.com/monstercameron/mdchem-mern",
-				DemoLink:    "",
-			},
-			{
-				Title:       "People Budget",
-				Description: "An interactive web application to involve people in local government. Led a team of 6 students and provided training in web design and React.",
-				TechStack:   []string{"React"},
-				GitHubLink:  "https://github.com/CodeforSouth/peoplebudget-demo",
-				DemoLink:    "",
-			},
-		})
+		@projectGrid(projects)
 	</div>
 }
 
-templ projectGrid(projects []Project) {
+templ projectGrid(projects []models.Project) {
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 		for _, project := range projects {
 			@projectCard(project)
@@ -72,7 +24,7 @@ templ projectGrid(projects []Project) {
 	</div>
 }
 
-templ projectCard(project Project) {
+templ projectCard(project models.Project) {
 	<div class="bg-white shadow-md rounded-lg p-6">
 		<h2 class="text-2xl font-semibold text-gray-800 mb-2">{ project.Title }</h2>
 		<p class="text-gray-600 mb-4">{ project.Description }</p>

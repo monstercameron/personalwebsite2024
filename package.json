@@ -6,7 +6,7 @@
   "scripts": {
     "templ": "cd views && templ generate",
     "start": "go run main.go",
-    "css": "tailwindcss -i ./styles/input.css -o ./static/output.css",
+    "css": "tailwindcss -i ./tailwinds/input.css -o ./static/styles/output.css",
     "dev": "npm run templ && npm run css && npm run start",
     "watch": "nodemon --watch 'views/**/*.templ' --watch main.go --watch styles/input.css --ext go,templ,css --ignore '**/*_templ.go' --exec \"npm run dev\"",
     "watch:css": "tailwindcss -i ./styles/input.css -o ./static/output.css --watch",

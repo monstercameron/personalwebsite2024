@@ -1,6 +1,6 @@
 // openai/openai_handler.go
 
-package openai
+package utils
 
 import (
 	"context"

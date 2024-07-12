@@ -1,0 +1,44 @@
+[
+    {
+      "title": "UKG Internal Dashboards",
+      "description": "Led a group of interns in building an internal analytics dashboard. Tapped into Jira databases and localized data for internal analysis. Metrics tracked include change failure rate, mean time to resolution, cycle times, throughput, etc.",
+      "techStack": ["Typescript", "hono.js", "jsx", "Htmx", "TailwindCSS", "MSSQL", "Jira API"],
+      "githubLink": "",
+      "demoLink": ""
+    },
+    {
+      "title": "Personal Website 2024",
+      "description": "An experimental project to learn HATEOAS principles. Utilized HTMX to add flexibility to the frontend without the complexity of React's ecosystem.",
+      "techStack": ["HTMX", "TailwindCSS", "Go", "Templ", "HATEOAS", "Openai"],
+      "githubLink": "https://github.com/monstercameron/PersonalWebsite2024",
+      "demoLink": "https://www.earlcameron.com"
+    },
+    {
+      "title": "goGitListener",
+      "description": "A Go application designed to listen for GitHub webhooks and execute custom scripts based on push events.",
+      "techStack": ["Go", "GitHub Webhooks", "JSON", "Systemd", "Ubuntu"],
+      "githubLink": "https://github.com/monstercameron/goGitListener",
+      "demoLink": ""
+    },
+    {
+      "title": "MetaHuman Server",
+      "description": "A voice-activated chatbot that replicates functionalities similar to Siri or Alexa. Serves as a test bed for integrating various cutting-edge AI models.",
+      "techStack": ["Python", "SOTA AI/ML Models", "whisper", "Coqui TTS", "Picovoice"],
+      "githubLink": "https://github.com/monstercameron/MetaHumanServer",
+      "demoLink": ""
+    },
+    {
+      "title": "MDChem",
+      "description": "A chemistry game and dashboard to assist a chemistry professor in improving student scores.",
+      "techStack": ["MERN Stack"],
+      "githubLink": "https://github.com/monstercameron/mdchem-mern",
+      "demoLink": ""
+    },
+    {
+      "title": "People Budget",
+      "description": "An interactive web application to involve people in local government. Led a team of 6 students and provided training in web design and React.",
+      "techStack": ["React"],
+      "githubLink": "https://github.com/CodeforSouth/peoplebudget-demo",
+      "demoLink": ""
+    }
+  ]

@@ -1,0 +1,21 @@
+{
+    "name": "Earl Cameron - Full-stack Developer & AI Innovator",
+    "short_name": "Earl Cameron",
+    "icons": [
+        {
+            "src": "/static/images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "description": "Personal website of Earl Cameron, showcasing expertise in full-stack development and AI innovation."
+}
