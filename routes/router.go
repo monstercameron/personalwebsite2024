@@ -19,6 +19,9 @@ func SetupRoutes(user, pass string) http.Handler {
 	fs := http.FileServer(http.Dir("static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", handlers.CacheControlHandler(fs)))
 
+	// Add handler for robots.txt
+	mux.HandleFunc("/robots.txt", handlers.HandleRobotsTxt)
+
 	// Public routes
 	mux.HandleFunc("/", middleware.LoggerMiddleware(handlers.HandleHome))
 	mux.HandleFunc("/resume", middleware.LoggerMiddleware(handlers.HandleResume))
