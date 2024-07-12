@@ -11,7 +11,7 @@ templ Layout(title string) {
 			<title>{ title }</title>
 			<meta name="description" content="Earl Cameron: Full-stack Developer with expertise in JavaScript, Python, .NET, AI chatbots, and technical support."/>
 			<meta name="view-transition" content="same-origin"/>
-			<script src="/static/scripts/htmx.min.js"></script>
+			<script defer src="/static/scripts/htmx.min.js"></script>
 			<link href="/static/styles/output.css" rel="stylesheet"/>
 			// Add favicon and related links
 			<link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png"/>
@@ -42,7 +42,7 @@ templ Layout(title string) {
                 }
             </style>
 		</head>
-		<body class="flex flex-col min-h-screen bg-gray-100">
+		<body class="flex flex-col min-h-screen bg-gray-200">
 			@Nav()
 			<main class="flex-grow">
 				<div id="content">
