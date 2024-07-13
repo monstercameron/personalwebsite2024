@@ -1,52 +1,48 @@
 package views
 
 templ HomeFullPage(quote string) {
-    @Layout("Earl Cameron - Home") {
-        @HomeContent(quote)
-    }
+	@Layout("Earl Cameron - Home") {
+		@HomeContent(quote)
+	}
 }
 
 templ HomeContent(quote string) {
-    <div class="max-w-7xl mx-auto py-16 px-6">
-        <!-- Page Title -->
-        <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Welcome to Earl Cameron's Website</h1>
-        
-        <!-- Question of the Day -->
-        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-8 rounded-lg shadow-lg mb-12 mx-auto text-center max-w-3xl">
-            <p class="text-3xl font-bold">Quote of the Day</p>
-            <p class="mt-4 text-xl italic">{ quote }</p>
-        </div>
-        
-        <!-- Split Panel -->
-        <div class="md:flex md:items-center md:space-x-12 mb-16">
-            <!-- Text Blurb -->
-            <div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
-                <h2 class="text-3xl font-semibold text-gray-800 mb-6">Software Engineering Leader & Educator</h2>
-                <p class="text-lg text-gray-600 mb-4">
-                    As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project. My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.
-                </p>
-                <p class="text-lg text-gray-600 mb-4">
-                    I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success. My experience as an instructor underscores my commitment to knowledge sharing and mentorship.
-                </p>
-                <p class="text-lg text-gray-600">
-                    I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent. Ready to bring innovation and excellence to your team.
-                </p>
-            </div>
-            
-            <!-- Profile Photo -->
-            <div class="mt-12 md:mt-0 md:w-1/2 flex justify-center">
-                <img src="/static/images/profile-sm.jpg" alt="Earl Cameron" class="w-80 h-auto rounded-full shadow-lg"/>
-            </div>
-        </div>
-        
-        <!-- Call to Actions -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-            <a href="/projects" hx-get="/projects" hx-target="#content" hx-push-url="true" class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300">
-                View My Projects
-            </a>
-            <a href="/projects" hx-get="/resume" hx-target="#content" hx-push-url="true" class="bg-green-800 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300">
-                Check Out My Resume
-            </a>
-        </div>
-    </div>
+	<div class="max-w-7xl mx-auto py-16 px-6">
+		<!-- Page Title -->
+		<h1 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Welcome to Earl Cameron's Website</h1>
+		<!-- Question of the Day -->
+		<div class="p-8 rounded-lg mb-12 mx-auto text-center max-w-3xl text-gray-900">
+			<p class="text-3xl font-bold">Quote of the Day</p>
+			<p class="mt-4 text-xl italic">{ quote }</p>
+		</div>
+		<!-- Split Panel -->
+		<div class="md:flex md:items-center md:space-x-12 mb-16">
+			<!-- Text Blurb -->
+			<div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
+				<h2 class="text-3xl font-semibold text-gray-800 mb-6">Software Engineering Leader & Educator</h2>
+				<p class="text-lg text-gray-600 mb-4">
+					As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project. My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.
+				</p>
+				<p class="text-lg text-gray-600 mb-4">
+					I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success. My experience as an instructor underscores my commitment to knowledge sharing and mentorship.
+				</p>
+				<p class="text-lg text-gray-600">
+					I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent. Ready to bring innovation and excellence to your team.
+				</p>
+			</div>
+			<!-- Profile Photo -->
+			<div class="mt-12 md:mt-0 md:w-1/2 flex justify-center">
+				<img src="/static/images/profile-sm.jpg" alt="Earl Cameron" class="w-80 h-auto rounded-full shadow-lg"/>
+			</div>
+		</div>
+		<!-- Call to Actions -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+			<a href="/projects" hx-get="/projects" hx-target="#content" hx-push-url="true" class="hover:bg-gray-600 text-slate-700 hover:text-slate-50 font-bold py-4 px-6 rounded-2xl shadow-md transition duration-300">
+				View My Projects
+			</a>
+			<a href="/projects" hx-get="/resume" hx-target="#content" hx-push-url="true" class="hover:bg-gray-600 text-slate-700 hover:text-slate-50 font-bold py-4 px-6 rounded-2xl shadow-md transition duration-300">
+				Check Out My Resume
+			</a>
+		</div>
+	</div>
 }
