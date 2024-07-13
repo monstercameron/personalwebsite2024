@@ -13,6 +13,8 @@ templ Layout(title string) {
 			<meta name="view-transition" content="same-origin"/>
 			<script defer src="/static/scripts/htmx.min.js"></script>
 			<link href="/static/styles/output.css" rel="stylesheet"/>
+			<script defer src="/static/scripts/prism.min.js"></script>
+			<link href="/static/styles/prism.min.css" rel="stylesheet"/>
 			// Add favicon and related links
 			<link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png"/>
 			<link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png"/>
@@ -40,6 +42,12 @@ templ Layout(title string) {
                 ::view-transition-new(content) {
                     animation-duration: 0.5s;
                 }
+				
+				pre.line-numbers {
+					position: relative;
+					padding-left: 3.8em; /* Adjust based on your needs */
+					overflow: auto; /* Ensure overflow is handled */
+				}
             </style>
 		</head>
 		<body class="flex flex-col min-h-screen bg-gray-100">

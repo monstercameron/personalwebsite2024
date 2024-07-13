@@ -98,7 +98,7 @@ func generateQuote() (string, error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
-					Content: "Generate an inspirational quote from a famous person in tech, not steve jobs. Quote and cite the source.",
+					Content: "Give me an inspirational quote or piece of advice, make it related to software engineering. Cite author if possible.",
 				},
 			},
 		},
