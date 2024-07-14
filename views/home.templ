@@ -29,123 +29,753 @@ templ HomeContent(quote string) {
 		</div>
 		<!-- Split Panel -->
 		<div class="md:flex md:items-center md:justify-center md:space-x-12 mb-20">
-			<!-- Text Code -->
-			<div class="md:w-4/5">
-				<pre class="line-numbers bg-zinc-800">
-					<code id="portfolio" class="language-js">
-						{ `
-  // Here's our awesome async function to fetch the bio
-  (async function aboutMe() {
-    // Array of async functions that return parts of the bio
-    const bioParts = [
-      async () => "Software Engineering Leader & Educator",
-      async () => "As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project.",
-      async () => "My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.",
-      async () => "I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success.",
-      async () => "My experience as an instructor underscores my commitment to knowledge sharing and mentorship.",
-      async () => "I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent.",
-      async () => "Ready to bring innovation and excellence to your team."
-    ];
+			
+    <!-- Code editor -->
+    <div
+      class="border border-gray-500 bg-slate-900 rounded-lg m-10 shadow-lg grid grid-cols-12 text-white"
+    >
+      <style>
+        .override-style-pre {
+          border: none !important;
+          border-radius: 0 !important;
+          overflow: hidden !important;
+          background-color: rgb(30 41 59) !important;
+          box-shadow: none !important;
+          margin: none !important;
+          overflow-y: scroll !important;
+          height: 400px !important;
+        }
 
-    // Fetch all parts of the bio concurrently
-    const parts = await Promise.all(bioParts.map(func => func()));
+        /* get parent div and remove border */
+        .override-style-pre:has(> div) {
+          border: none !important;
+          border-radius: 0 !important;
+          overflow: hidden !important;
+          height: 100% !important;
+        }
 
-    // Join the parts with newlines and return the result
-    return parts.join('\n\n');
-  })(); // Immediately invoke the async function` }
-					</code>
-				</pre>
-				<div>
-					<style>
-						@keyframes exaggerated-breathing {
-            0%, 100% {
-                transform: scale(0.95) rotate(-1deg);
-                box-shadow: 0 0 0 rgba(0,0,0,0.1);
-                text-shadow: 0 0 0 rgba(255,255,255,0);
-                opacity: 0.7;
-            }
-            10% {
-                transform: scale(1.02) rotate(2deg);
-            }
-            20% {
-                transform: scale(1.06) rotate(-1.5deg);
-            }
-            30% {
-                transform: scale(1.1) rotate(1deg);
-            }
-            40% {
-                transform: scale(1.14) rotate(-0.5deg);
-            }
-            50% {
-                transform: scale(1.18) rotate(0.2deg);
-            }
-            60% {
-                transform: scale(1.2) rotate(-0.1deg);
-            }
-            70% {
-                transform: scale(1.22);
-                box-shadow: 0 0 30px rgba(0,0,0,0.6);
-                text-shadow: 0 0 15px rgba(255,255,255,1);
-                opacity: 1;
-            }
-            85% {
-                transform: scale(1.1) rotate(0.5deg);
-                box-shadow: 0 0 15px rgba(0,0,0,0.3);
-                text-shadow: 0 0 8px rgba(255,255,255,0.6);
-                opacity: 0.85;
-            }
+        .override-style-code {
+          font-size: 10pt !important;
+          overflow-y: scroll !important;
+          height: 250px !important;
+        }
+
+        pre {
+          white-space: pre-wrap; /* Since CSS 2.1 */
+          white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+          white-space: -pre-wrap; /* Opera 4-6 */
+          white-space: -o-pre-wrap; /* Opera 7 */
+          word-wrap: break-word; /* Internet Explorer 5.5+ */
+        }
+
+        @keyframes exaggerated-breathing {
+          0%,
+          100% {
+            transform: scale(0.95) rotate(-1deg);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+            text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(2) rotate(15deg);
+          }
         }
         .breathing-animation {
-            animation: exaggerated-breathing 5s ease-in-out infinite;
+          animation: exaggerated-breathing 2s ease-in-out infinite;
         }
         .breathing-animation:hover {
-            animation: none;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0,0,0,0.4);
-            text-shadow: 0 0 10px rgba(255,255,255,0.7);
-            opacity: 0.95;
+          animation: none;
+          transform: scale(1.1);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+          opacity: 0.95;
         }
-						pre {
-							white-space: pre-wrap; /* CSS3 */
-							white-space: -moz-pre-wrap; /* Mozilla */
-							white-space: -pre-wrap; /* Opera 4-6 */
-							white-space: -o-pre-wrap; /* Opera 7 */
-							word-wrap: break-word; /* IE */
-						}
-					</style>
-					<button id="runcode" class="bg-gray-800 hover:bg-gray-900 text-slate-50 hover:text-slate-50 font-semibold py-4 px-6 rounded-2xl shadow-md transition-colors duration-300 breathing-animation">
-						Execute aboutMe()
-					</button>
-					<pre style="display:none;height:400px;white-space: pre-wrap; word-wrap: break-word;" class="text-slate-50 line-numbers bg-zinc-800 transition duration-300 ">
-						<code id="output" class="language-js"></code>
-					</pre>
-					<script defer>
-    document.addEventListener('DOMContentLoaded', () => {
-        const button = document.querySelector('#runcode');
-        const code = document.querySelector('#portfolio');
-        const output = document.querySelector('#output');
+      </style>
+      <!-- Title Bar -->
+      <div
+        class="border-b-gray-500 py-2 px-2 grid grid-cols-12 col-span-12 h-11"
+      >
+        <!-- window controls -->
+        <div class="col-span-1 grid grid-cols-12 gap-3 h-3 pt-2 pl-2">
+          <div
+            class="col-span-2 bg-red-600 rounded-full p-1 border border-gray-500 h-3 w-3 cursor-pointer"
+          ></div>
+          <div
+            class="col-span-2 bg-yellow-600 rounded-full p-1 border border-gray-500 h-3 w-3 cursor-pointer"
+          ></div>
+          <div
+            class="col-span-1 bg-lime-600 rounded-full p-1 border border-gray-500 h-3 w-3 cursor-pointer"
+          ></div>
+        </div>
+        <!-- Add a span -->
+        <div class="col-span-1"></div>
+        <!-- directions -->
+        <div class="col-span-1 grid grid-cols-2 text-center">
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-arrow-left"
+            >
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+          </div>
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-arrow-right"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+        <!-- search field -->
+        <div class="col-span-7 grid grid-cols-12 h-3">
+          <div
+            class="col-span-12 border border-gray-500 border rounded-lg text-center font-bold"
+          >
+            <span class="inline-block h-4"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search text-sm"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </span>
+            <span> com.EarlCameron</span>
+          </div>
+        </div>
+        <!-- window shortcuts -->
+        <div class="col-span-2 grid grid-cols-6 gap-2">
+          <!-- add span -->
+          <div class="col-span-2"></div>
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-layout-panel-left"
+            >
+              <rect width="7" height="18" x="3" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="14" rx="1" />
+            </svg>
+          </div>
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-panel-left"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2" />
+              <path d="M9 3v18" />
+            </svg>
+          </div>
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-panel-bottom"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2" />
+              <path d="M3 15h18" />
+            </svg>
+          </div>
+          <div class="col-span-1 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide block lucide-panel-right"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2" />
+              <path d="M15 3v18" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- layout -->
+      <div class="grid grid-cols-12 col-span-12">
+        <!-- side bar -->
+        <div
+          class="col-span-1 border border-gray-500 border-r-0 grid grid-cols-1 grid-rows-12"
+        >
+          <div
+            class="h-12 pt-3 flex justify-center cursor-pointer border-l-4 border-l-blue-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-files"
+            >
+              <path d="M20 7h-3a2 2 0 0 1-2-2V2" />
+              <path
+                d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"
+              />
+              <path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8" />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-search"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-git-branch"
+            >
+              <line x1="6" x2="6" y1="3" y2="15" />
+              <circle cx="18" cy="6" r="3" />
+              <circle cx="6" cy="18" r="3" />
+              <path d="M18 9a9 9 0 0 1-9 9" />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-git-branch"
+            >
+              <line x1="6" x2="6" y1="3" y2="15" />
+              <circle cx="18" cy="6" r="3" />
+              <circle cx="6" cy="18" r="3" />
+              <path d="M18 9a9 9 0 0 1-9 9" />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-blocks"
+            >
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <path
+                d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"
+              />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer"></div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer"></div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer"></div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer"></div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer"></div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-blocks"
+            >
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <path
+                d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"
+              />
+            </svg>
+          </div>
+          <div class="h-12 pt-3 flex justify-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-settings"
+            >
+              <path
+                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+              />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+        </div>
+        <!-- Explorer -->
+        <div
+          class="col-span-3 border border-gray-500 border-r-0 grid grid-cols-1"
+        >
+          <!-- ignore neigherbor height wrapper -->
+          <div>
+            <!-- panel title -->
+            <div class="col-span-1 grid grid-cols-12">
+              <div class="col-span-9 p-2">EXPLORER</div>
+              <div class="col-span-3 text-center text-2xl">...</div>
+            </div>
+            <!-- tree view -->
+            <div class="grid grid-cols-12">
+              <div class="col-span-12 h-5">
+                <div class="inline-block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down inline-block"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+                <div class="inline-block">com.EarlCameron</div>
+              </div>
+              <!-- include span -->
+              <div class="col-span-2 my-1"></div>
+              <!-- files list -->
+              <div
+                class="col-span-12 h-9 p-1 bg-r-gray-600 border-t border-t-indigo-500 bg-gray-800"
+              >
+                <!-- indentation -->
+                <div class="pl-7 pb-3">
+                  <div class="inline-block text-blue-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-square-function inline-block"
+                    >
+                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                      <path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3" />
+                      <path d="M9 11.2h5.7" />
+                    </svg>
+                  </div>
+                  <div class="inline-block pl-2 cursor-pointer">aboutMe.js</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- body -->
+        <div
+          class="col-span-8 border border-gray-500 grid grid-cols-12 body-grid bg-gray-800"
+        >
+          <!-- content tabs -->
+          <div
+            class="col-span-2 px-4 border-gray-600 bg-gray-800 h-8 border-t-2 border-t-blue-500 cursor-pointer"
+          >
+            aboutMe.js
+          </div>
+          <!-- add span -->
+          <div class="col-span-9 bg-gray-900"></div>
+          <!-- add split buttons -->
+          <div class="col-span-1 grid grid-cols-12 py-2 bg-gray-900">
+            <div class="col-span-12 flex justify-center cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-columns-2"
+              >
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M12 3v18" />
+              </svg>
+            </div>
+          </div>
+          <!-- content -->
+          <div class="col-span-12">
+            <pre
+              style="white-space: pre-wrap; overflow-wrap: break-word"
+              class="line-numbers override-style-pre"
+            >
+                  <code id="portfolio" class="language-js bg-gray-700">
+// Here's our awesome async function to fetch the bio
+{` (async function aboutMe() {
+  // Array of async functions that return parts of the bio
+  const bioParts = [
+    async () => "Software Engineering Leader & Educator",
+    async () => "As a seasoned software engineer with a track record of success at leading tech companies, I bring a unique blend of technical expertise and leadership skills to every project.",
+    async () => "My adaptability allows me to quickly master new platforms, while my proficiency in designing, coding, debugging, and testing ensures robust, efficient solutions.",
+    async () => "I thrive in high-pressure team environments, leveraging strong interpersonal and communication skills to drive collaborative success.",
+    async () => "My experience as an instructor underscores my commitment to knowledge sharing and mentorship.",
+    async () => "I'm passionate about pushing the boundaries of software development while nurturing the next generation of tech talent.",
+    async () => "Ready to bring innovation and excellence to your team."
+  ];
 
-        if (button && code && output) {
-            button.addEventListener('click', async () => {
-                console.log("Button clicked.");
-                try {
-                    const result = await eval(`${code.innerText}`);
-                    output.innerText = result;
-                    output.parentElement.style.display = 'block';
-                } catch (error) {
-                    console.error("Error evaluating code:", error);
-                    output.innerText = "Error evaluating code: " + error.message;
-                    output.parentElement.style.display = 'block';
-                }
+  // Fetch all parts of the bio concurrently
+  const parts = await Promise.all(bioParts.map(func => func()));
+
+  // Join the parts with newlines and return the result
+  return parts.join('\n\n');
+})(); // Immediately invoke the async function 
+`}
+                  </code>
+              </pre>
+          </div>
+          <!-- terminal -->
+          <div
+            class="col-span-12 grid grid-cols-12 border-t border-t-gray-500 bg-slate-900"
+          >
+            <!-- terminal nav -->
+            <div class="col-span-2 px-2 pb-1 pt-1 text-center cursor-pointer">
+              <div class="border-b-4 border-b-blue-500">TERMINAL</div>
+            </div>
+            <div class="col-span-9"></div>
+            <div class="col-span-1 text-center">
+              <div id="runcode" class="pt-3 cursor-pointer breathing-animation">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-play"
+                >
+                  <polygon points="6 3 20 12 6 21 6 3" />
+                </svg>
+              </div>
+            </div>
+            <!-- terminal output -->
+            <div class="col-span-12">
+              <pre
+                style="white-space: pre-wrap; overflow-wrap: break-word"
+                class="line-numbers override-style-pre text-xs override-style-code"
+              >
+                    <code id="output" class="language-bs">
+                        CamTerminal MINGW64 ~/Desktop/personalwebsite2024:
+
+                    </code>
+                </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="border-b-gray-600 grid grid-cols-12 col-span-12 h-8">
+        <div class="col-span-1 w-1/2">
+          <div
+            class="bg-blue-500 pl-auto pt-1 rounded-bl-lg h-8 flex justify-center cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-network"
+            >
+              <rect x="16" y="16" width="6" height="6" rx="1" />
+              <rect x="2" y="16" width="6" height="6" rx="1" />
+              <rect x="9" y="2" width="6" height="6" rx="1" />
+              <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+              <path d="M12 12V8" />
+            </svg>
+          </div>
+        </div>
+        <div class="col-span-1 text-center pt-1 cursor-pointer">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-git-branch inline-block"
+            >
+              <line x1="6" x2="6" y1="3" y2="15" />
+              <circle cx="18" cy="6" r="3" />
+              <circle cx="6" cy="18" r="3" />
+              <path d="M18 9a9 9 0 0 1-9 9" />
+            </svg>
+            main
+          </div>
+        </div>
+        <div class="col-span-2 text-center pt-1 cursor-pointer">
+          <div class="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide inline-block lucide-refresh-cw"
+            >
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+              <path d="M8 16H3v5" />
+            </svg>
+            0<svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="transform: rotate(180deg)"
+              class="lucide inline-block lucide-move-up"
+            >
+              <path d="M8 18L12 22L16 18" />
+              <path d="M12 2V22" />
+            </svg>
+            1<svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide inline-block lucide-move-down"
+            >
+              <path d="M8 18L12 22L16 18" />
+              <path d="M12 2V22" />
+            </svg>
+          </div>
+        </div>
+        <!-- add span -->
+        <div class="col-span-5"></div>
+        <div class="col-span-2 text-center cursor-pointer pt-1">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-braces inline-block"
+            >
+              <path
+                d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"
+              />
+              <path
+                d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"
+              />
+            </svg>
+            Javascript
+          </div>
+        </div>
+        <div class="col-span-1 text-center cursor-pointer pt-1">
+          <div class="flex justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-bell"
+            >
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <script defer>
+        const terminalIdentity =
+          "CamTerminal MINGW64 ~/Desktop/personalwebsite2024:";
+        const responseStreamer = async (data, sync) => {
+          // clear the output
+          const clear = " clear";
+          for (let i = 0; i < clear.length; i++) {
+            output.innerText += clear[i];
+            if (sync) {
+              // add a wait
+              await new Promise((resolve) => setTimeout(resolve, 100));
+            }
+          }
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
+          sync.innerText = terminalIdentity;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
+          // enter in commands to run script
+          const runNode = " npm aboutMe.js\n";
+          for (let i = 0; i < runNode.length; i++) {
+            output.innerText += runNode[i];
+            if (sync) {
+              // add a wait
+              await new Promise((resolve) => setTimeout(resolve, 100));
+            }
+          }
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // return script content
+          for (let i = 0; i < data.length; i++) {
+            output.innerText += data[i];
+            if (sync) {
+              // add a wait
+              await new Promise((resolve) => setTimeout(resolve, 1));
+            }
+          }
+          sync.innerText += "\n" + terminalIdentity;
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const button = document.querySelector("#runcode");
+          const code = document.querySelector("#portfolio");
+          const output = document.querySelector("#output");
+
+          if (button && code && output) {
+            button.addEventListener("click", async () => {
+              // console.log("Button clicked.");
+              try {
+                const result = await eval(`${code.innerText}`);
+
+                //   to stream results to the output
+                responseStreamer(result, output);
+
+                //   output.innerText = result;
+                output.parentElement.style.display = "block";
+              } catch (error) {
+                console.error("Error evaluating code:", error);
+                output.innerText = "Error evaluating code: " + error.message;
+                output.parentElement.style.display = "block";
+              }
             });
-            console.log("Button listener added.");
-        } else {
-            console.error("Button, code, or output element not found.");
-        }
-    });
-</script>
-				</div>
-			</div>
+            //   console.log("Button listener added.");
+          } else {
+            //   console.error("Button, code, or output element not found.");
+          }
+        });
+      </script>
+    </div>
 		</div>
 		<!-- Call to Actions -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
