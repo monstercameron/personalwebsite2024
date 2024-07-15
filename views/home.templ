@@ -726,7 +726,7 @@ templ HomeContent(quote string) {
           await new Promise((resolve) => setTimeout(resolve, 500));
 
           // enter in commands to run script
-          const runNode = " npm aboutMe.js\n";
+          const runNode = " node aboutMe.js\n";
           for (let i = 0; i < runNode.length; i++) {
             output.innerText += runNode[i];
             if (sync) {
